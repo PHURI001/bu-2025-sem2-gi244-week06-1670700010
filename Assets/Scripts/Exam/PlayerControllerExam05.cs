@@ -11,6 +11,8 @@ public class PlayerControllerExam05 : MonoBehaviour
     // Exam 05 ...
     public int maxBulletCount = 10;
     public float bulletRegenerateCooldown = 1f;
+
+    private int bulletCount = 0;
     // ...
 
     private float horizontalInput;
@@ -40,7 +42,20 @@ public class PlayerControllerExam05 : MonoBehaviour
 
         if (shootAction.triggered)
         {
-            Instantiate(projectilePrefab, transform.position, transform.rotation);
+            bulletCount++;
+            if (bulletCount <= maxBulletCount)
+            {
+                Instantiate(projectilePrefab, transform.position, transform.rotation);
+            }
+            else
+            {
+                Debug.Log("Loading");
+                if (Time.time >= bulletRegenerateCooldown)
+                {
+                    bulletCount = 0;
+                    bulletRegenerateCooldown = Time.time + bulletRegenerateCooldown;
+                }
+            }
         }
     }
 }

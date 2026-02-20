@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.UIElements;
 
 public class PlayerControllerExam02 : MonoBehaviour
 {
@@ -21,5 +22,12 @@ public class PlayerControllerExam02 : MonoBehaviour
     void Update()
     {
         verticalInput = moveAction.ReadValue<Vector2>().y;
+
+        transform.Translate(verticalInput * speed * Time.deltaTime * -Vector3.right);
+
+        if (shootAction.triggered)
+        {
+            Instantiate(projectilePrefab, transform.position, transform.rotation);
+        }
     }
 }
